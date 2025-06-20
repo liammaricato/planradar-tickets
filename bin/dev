@@ -1,0 +1,28 @@
+#!/bin/bash
+
+case "$1" in
+  "up")
+    docker compose -f docker-compose-dev.yml up
+    ;;
+  "build")
+    docker compose -f docker-compose-dev.yml up --build
+    ;;
+  "down")
+    docker compose -f docker-compose-dev.yml down
+    ;;
+  "logs")
+    docker compose -f docker-compose-dev.yml logs -f
+    ;;
+  "shell")
+    docker compose -f docker-compose-dev.yml exec web bash
+    ;;
+  *)
+    echo "Usage: bin/dev [command]"
+    echo "Available commands:"
+    echo "  up      - Start development environment"
+    echo "  build   - Start and rebuild development environment"
+    echo "  down    - Stop development environment"
+    echo "  logs    - View development logs"
+    echo "  shell   - Enter the running web container"
+    ;;
+esac
