@@ -1,0 +1,75 @@
+<%= form_with(model: user) do |form| %>
+  <% if user.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :mail, style: "display: block" %>
+    <%= form.text_field :mail %>
+  </div>
+
+  <div>
+    <%= form.label :send_due_date_reminder, style: "display: block" %>
+    <%= form.check_box :send_due_date_reminder, id: "send_reminder_checkbox" %>
+  </div>
+
+  <div id="reminder_fields" class="reminder-fields" style="<%= 'display: none;' unless user.send_due_date_reminder? %>">
+    <div>
+      <%= form.label :due_date_reminder_interval, style: "display: block" %>
+      <%= form.select :due_date_reminder_interval, (0..7).to_a, { include_blank: true } %>
+    </div>
+
+    <div>
+      <%= form.label :due_date_reminder_time, style: "display: block" %>
+      <%= form.time_field :due_date_reminder_time %>
+    </div>
+
+    <div>
+      <%= form.label :timezone, style: "display: block" %>
+      <%= form.text_field :timezone %>
+    </div>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', initializeReminderToggle);
+    document.addEventListener('turbo:load', initializeReminderToggle);
+
+    function initializeReminderToggle() {
+      const checkbox = document.getElementById('send_reminder_checkbox');
+      const reminderFields = document.getElementById('reminder_fields');
+      
+      if (!checkbox || !reminderFields) return;
+      
+      // Remove any existing event listeners to prevent duplicates
+      checkbox.removeEventListener('change', toggleReminderFields);
+      
+      function toggleReminderFields() {
+        if (checkbox.checked) {
+          reminderFields.style.display = 'block';
+        } else {
+          reminderFields.style.display = 'none';
+        }
+      }
+      
+      toggleReminderFields();
+      checkbox.addEventListener('change', toggleReminderFields);
+    }
+  </script>
+<% end %>
