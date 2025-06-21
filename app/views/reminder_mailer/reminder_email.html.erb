@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        padding: 10px;
+        font-family: Arial, sans-serif;
+      }
+
+      p {
+        margin: 10px 0;
+      }
+
+      .ticket-data {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin: 10px;
+      }
+
+      .ticket-data p {
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <p>This is a message from Pennylane Tickets</p>
+
+    <p>Hello <%= @user.name %>,</p>
+    <p>This is a reminder that one of your tickets is due soon:</p>
+
+    <div class="ticket-data">
+      <h4><%= @ticket.title %></h4>
+      <p>Due date: <%= @ticket.due_date %></p>
+      <p>Progress: <%= @ticket.progress %>%</p>
+    </div>
+
+    <p>View the ticket: <%= link_to @ticket.title, ticket_url(@ticket) %></p>
+
+    <p>If you'd like to change your notification preferences, check <%= link_to "your profile", edit_user_url(@user) %>.</p>
+  </body>
+</html>

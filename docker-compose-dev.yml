@@ -7,6 +7,12 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
 
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - "1080:1080" # Web interface
+      - "1026:1025" # SMTP server
+
   web:
     build:
       context: .
@@ -17,9 +23,11 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - mailcatcher
     environment:
       DATABASE_URL: postgres://postgres:password@db:5432
       SECRET_KEY_BASE: 123456789abcdef
+      MAILER_URL: smtp://mailcatcher:1025
     tty: true
 
 volumes:
