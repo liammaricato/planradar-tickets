@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
   resources :users
   resources :tickets
+
+  mount GoodJob::Engine, at: "good_job"
 end

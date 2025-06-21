@@ -1,24 +1,6 @@
-# README
+To-do:
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- [ ] This README
+- [ ] Factor in the due_date_reminder_interval on the reminder_due? calculation
+- [ ] Adding a simple status management for tickets so we don't repeatedly send reminders
+- [ ] Unit testing

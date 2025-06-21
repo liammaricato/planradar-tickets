@@ -28,6 +28,9 @@ gem "solid_cache"
 gem "solid_queue"
 gem "solid_cable"
 
+# Background job processing
+gem "good_job"
+
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
@@ -52,6 +55,9 @@ group :development, :test do
   
   # RSpec for testing
   gem "rspec-rails"
+
+  # Pry for debugging
+  gem "pry"
 end
 
 group :development do
