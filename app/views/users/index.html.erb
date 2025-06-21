@@ -6,7 +6,9 @@
 
 <div id="users">
   <% @users.each do |user| %>
-    <%= render user %>
+    <div class="outlined">
+      <%= render user %>
+    </div>
     <p>
       <%= link_to "Show this user", user %>
     </p>

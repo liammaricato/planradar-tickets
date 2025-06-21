@@ -6,7 +6,9 @@
 
 <div id="tickets">
   <% @tickets.each do |ticket| %>
-    <%= render ticket %>
+    <div class="outlined">
+      <%= render ticket %>
+    </div>
     <p>
       <%= link_to "Show this ticket", ticket %>
     </p>

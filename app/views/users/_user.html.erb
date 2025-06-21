@@ -9,23 +9,17 @@
     <%= user.mail %>
   </p>
 
-  <p>
-    <strong>Send due date reminder:</strong>
-    <%= user.send_due_date_reminder %>
-  </p>
-
-  <p>
-    <strong>Due date reminder interval:</strong>
-    <%= user.due_date_reminder_interval %>
-  </p>
-
-  <p>
-    <strong>Due date reminder time:</strong>
-    <%= user.due_date_reminder_time %>
-  </p>
-
-  <p>
-    <strong>Timezone:</strong>
-    <%= user.timezone %>
-  </p>
+  <% if user.send_due_date_reminder? %>
+    <p>
+      Reminders configured to notify
+      <strong><%= user.due_date_reminder_interval %></strong>
+      days before the due date at
+      <strong><%= user.due_date_reminder_time.strftime("%H:%M") %></strong>
+      (UTC <strong><%= user.timezone %>:00</strong>)
+    </p>
+  <% else %>
+    <p>
+      <strong>No due date reminders configured.</strong>
+    </p>
+  <% end %>
 </div>

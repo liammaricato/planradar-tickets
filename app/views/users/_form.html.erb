@@ -22,25 +22,24 @@
   </div>
 
   <div>
-    <%= form.label :send_due_date_reminder, style: "display: block" %>
-    <%= form.check_box :send_due_date_reminder, id: "send_reminder_checkbox" %>
+    <div style="display: flex; align-items: center; gap: 8px">
+      <%= form.label :send_due_date_reminder, "Mail me reminders before due dates: " %>
+      <%= form.check_box :send_due_date_reminder, id: "send_reminder_checkbox" %>
+    </div>
   </div>
 
   <div id="reminder_fields" class="reminder-fields" style="<%= 'display: none;' unless user.send_due_date_reminder? %>">
-    <div>
-      <%= form.label :due_date_reminder_interval, style: "display: block" %>
-      <%= form.select :due_date_reminder_interval, (0..7).to_a, { include_blank: true } %>
-    </div>
-
-    <div>
-      <%= form.label :due_date_reminder_time, style: "display: block" %>
+    <p>
+      Remind me
+      <%= form.select :due_date_reminder_interval, (0..7).to_a %>
+      days before the due date at
       <%= form.time_field :due_date_reminder_time %>
-    </div>
-
-    <div>
-      <%= form.label :timezone, style: "display: block" %>
-      <%= form.text_field :timezone %>
-    </div>
+    </p>
+    
+    <p>
+      <strong>Timezone:</strong>
+      UTC <%= form.number_field :timezone, min: -12, max: 12, step: 1, value: 0 %>:00
+    </p>
   </div>
 
   <div>
@@ -56,8 +55,7 @@
       const reminderFields = document.getElementById('reminder_fields');
       
       if (!checkbox || !reminderFields) return;
-      
-      // Remove any existing event listeners to prevent duplicates
+
       checkbox.removeEventListener('change', toggleReminderFields);
       
       function toggleReminderFields() {

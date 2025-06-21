@@ -6,7 +6,7 @@ class CreateUsers < ActiveRecord::Migration[8.0]
       t.boolean :send_due_date_reminder, default: false
       t.integer :due_date_reminder_interval, default: 0
       t.time :due_date_reminder_time
-      t.string :timezone
+      t.string :timezone, default: "0"
 
       t.timestamps
     end
