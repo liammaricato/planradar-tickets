@@ -22,4 +22,4 @@ FactoryBot.define do
       due_date_reminder_recurring { true }
     end
   end
-end 
+end

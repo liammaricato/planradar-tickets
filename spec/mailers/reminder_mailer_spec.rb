@@ -9,8 +9,8 @@ RSpec.describe ReminderMailer, type: :mailer do
 
     it "renders the headers" do
       expect(mail.subject).to eq("Reminder: Your ticket #{ticket.title} is due soon")
-      expect(mail.to).to eq([user.mail])
-      expect(mail.from).to eq(["tickets-reminder@planradar.com"])
+      expect(mail.to).to eq([ user.mail ])
+      expect(mail.from).to eq([ "tickets-reminder@planradar.com" ])
     end
 
     it "renders the body" do

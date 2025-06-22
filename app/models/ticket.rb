@@ -9,14 +9,14 @@ class Ticket < ApplicationRecord
     notified: 1,
     done: 2
   }
-  
+
   alias_attribute :status, :status_id
-  
+
   delegate :timezone, :due_date_reminder_time, :due_date_reminder_recurring,
            :due_date_reminder_interval, to: :user
 
   scope :not_notified, -> { where(status: :open) }
-  scope :due_soon, -> { where('due_date <= ?', Time.current + 7.days) }
+  scope :due_soon, -> { where("due_date <= ?", Time.current + 7.days) }
   scope :notifiable, -> do
     includes(:user)
       .where(users: { send_due_date_reminder: true })

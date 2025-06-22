@@ -13,12 +13,11 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/tickets", type: :request do
-  
   # This should return the minimal set of attributes required to create a valid
   # Ticket. As you add validations to Ticket, be sure to
   # adjust the attributes here as well.
   let(:user) { create(:user) }
-  
+
   let(:valid_attributes) {
     {
       user_id: user.id,

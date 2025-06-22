@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'tickets#index'
+  root "tickets#index"
 
   resources :users
   resources :tickets

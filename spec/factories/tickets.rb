@@ -26,4 +26,4 @@ FactoryBot.define do
       due_date { nil }
     end
   end
-end 
+end

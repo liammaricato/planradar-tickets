@@ -9,4 +9,4 @@ RSpec.describe Notifiers::Base do
       expect { notifier.notify! }.to raise_error(NotImplementedError)
     end
   end
-end 
+end

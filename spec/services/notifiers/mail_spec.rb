@@ -17,7 +17,7 @@ RSpec.describe Notifiers::Mail do
 
   describe '#notify!' do
     subject { notifier.notify! }
-    
+
     it 'sends reminder email through ReminderMailer' do
       expect(ReminderMailer).to receive(:reminder_email).with(ticket).and_return(mailer_double)
       expect(mailer_double).to receive(:deliver_later)
@@ -25,4 +25,4 @@ RSpec.describe Notifiers::Mail do
       subject
     end
   end
-end 
+end
