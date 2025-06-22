@@ -5,7 +5,7 @@ class ReminderSchedulerJob < ApplicationJob
     Ticket.notifiable.due_soon.find_each do |ticket|
       next unless ticket.reminder_due?
 
-      ReminderMailer.reminder_email(ticket).deliver_later
+      ticket.reminder_notify!
     end
   end
 end
