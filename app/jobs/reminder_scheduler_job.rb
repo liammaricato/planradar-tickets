@@ -3,9 +3,7 @@ class ReminderSchedulerJob < ApplicationJob
 
   def perform
     Ticket.notifiable.due_soon.find_each do |ticket|
-      next unless ticket.reminder_due?
-
-      ticket.reminder_notify!
+      ticket.reminder_notify! if ticket.reminder_due?
     end
   end
 end
