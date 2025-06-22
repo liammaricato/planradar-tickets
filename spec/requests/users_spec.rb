@@ -18,16 +18,28 @@ RSpec.describe "/users", type: :request do
   # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      name: "Test User",
+      mail: "test@example.com",
+      send_due_date_reminder: true,
+      due_date_reminder_interval: 1,
+      timezone: "0"
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      name: "",
+      mail: "",
+      send_due_date_reminder: false,
+      due_date_reminder_interval: 0,
+      timezone: "0"
+    }
   }
 
   describe "GET /index" do
     it "renders a successful response" do
-      User.create! valid_attributes
+      create(:user)
       get users_url
       expect(response).to be_successful
     end
@@ -35,7 +47,7 @@ RSpec.describe "/users", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      user = User.create! valid_attributes
+      user = create(:user)
       get user_url(user)
       expect(response).to be_successful
     end
@@ -50,7 +62,7 @@ RSpec.describe "/users", type: :request do
 
   describe "GET /edit" do
     it "renders a successful response" do
-      user = User.create! valid_attributes
+      user = create(:user)
       get edit_user_url(user)
       expect(response).to be_successful
     end
@@ -87,18 +99,28 @@ RSpec.describe "/users", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          name: "Updated User",
+          mail: "updated@example.com",
+          send_due_date_reminder: true,
+          due_date_reminder_interval: 1,
+          timezone: "0"
+        }
       }
 
       it "updates the requested user" do
-        user = User.create! valid_attributes
+        user = create(:user)
         patch user_url(user), params: { user: new_attributes }
         user.reload
-        skip("Add assertions for updated state")
+        expect(user.name).to eq("Updated User")
+        expect(user.mail).to eq("updated@example.com")
+        expect(user.send_due_date_reminder).to eq(true)
+        expect(user.due_date_reminder_interval).to eq(1)
+        expect(user.timezone).to eq("0")
       end
 
       it "redirects to the user" do
-        user = User.create! valid_attributes
+        user = create(:user)
         patch user_url(user), params: { user: new_attributes }
         user.reload
         expect(response).to redirect_to(user_url(user))
@@ -107,7 +129,7 @@ RSpec.describe "/users", type: :request do
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        user = User.create! valid_attributes
+        user = create(:user)
         patch user_url(user), params: { user: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -116,14 +138,14 @@ RSpec.describe "/users", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested user" do
-      user = User.create! valid_attributes
+      user = create(:user)
       expect {
         delete user_url(user)
       }.to change(User, :count).by(-1)
     end
 
     it "redirects to the users list" do
-      user = User.create! valid_attributes
+      user = create(:user)
       delete user_url(user)
       expect(response).to redirect_to(users_url)
     end

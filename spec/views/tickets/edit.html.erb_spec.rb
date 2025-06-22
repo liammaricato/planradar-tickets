@@ -1,15 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "tickets/edit", type: :view do
-  let(:ticket) {
-    Ticket.create!(
-      title: "MyString",
-      description: "MyText",
-      status_id: 1,
-      progress: 1,
-      users: nil
-    )
-  }
+  let(:ticket) { create(:ticket) }
 
   before(:each) do
     assign(:ticket, ticket)
@@ -24,11 +16,7 @@ RSpec.describe "tickets/edit", type: :view do
 
       assert_select "textarea[name=?]", "ticket[description]"
 
-      assert_select "input[name=?]", "ticket[status_id]"
-
-      assert_select "input[name=?]", "ticket[progress]"
-
-      assert_select "input[name=?]", "ticket[user_id]"
+      assert_select "select[name=?]", "ticket[user_id]"
     end
   end
 end

@@ -13,7 +13,7 @@
 
   <div>
     <%= form.label :user_id, style: "display: block" %>
-    <%= form.select :user_id, User.all.map { |user| [user.name, user.id] }, { include_blank: true } %>
+    <%= form.select :user_id, User.all.map { |user| [user.name, user.id] }, { include_blank: true }, { selected: ticket.user_id } %>
   </div>
 
   <div>

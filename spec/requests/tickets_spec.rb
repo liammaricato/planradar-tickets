@@ -17,17 +17,29 @@ RSpec.describe "/tickets", type: :request do
   # This should return the minimal set of attributes required to create a valid
   # Ticket. As you add validations to Ticket, be sure to
   # adjust the attributes here as well.
+  let(:user) { create(:user) }
+  
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    {
+      user_id: user.id,
+      title: "Test ticket",
+      description: "Test description",
+      due_date: 1.week.from_now
+    }
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    {
+      user_id: nil,
+      title: "",
+      description: "",
+      due_date: nil
+    }
   }
 
   describe "GET /index" do
     it "renders a successful response" do
-      Ticket.create! valid_attributes
+      create(:ticket)
       get tickets_url
       expect(response).to be_successful
     end
@@ -35,7 +47,7 @@ RSpec.describe "/tickets", type: :request do
 
   describe "GET /show" do
     it "renders a successful response" do
-      ticket = Ticket.create! valid_attributes
+      ticket = create(:ticket)
       get ticket_url(ticket)
       expect(response).to be_successful
     end
@@ -50,7 +62,7 @@ RSpec.describe "/tickets", type: :request do
 
   describe "GET /edit" do
     it "renders a successful response" do
-      ticket = Ticket.create! valid_attributes
+      ticket = create(:ticket)
       get edit_ticket_url(ticket)
       expect(response).to be_successful
     end
@@ -87,18 +99,22 @@ RSpec.describe "/tickets", type: :request do
   describe "PATCH /update" do
     context "with valid parameters" do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        {
+          title: "Updated ticket title",
+          description: "Updated description"
+        }
       }
 
       it "updates the requested ticket" do
-        ticket = Ticket.create! valid_attributes
+        ticket = create(:ticket)
         patch ticket_url(ticket), params: { ticket: new_attributes }
         ticket.reload
-        skip("Add assertions for updated state")
+        expect(ticket.title).to eq("Updated ticket title")
+        expect(ticket.description).to eq("Updated description")
       end
 
       it "redirects to the ticket" do
-        ticket = Ticket.create! valid_attributes
+        ticket = create(:ticket)
         patch ticket_url(ticket), params: { ticket: new_attributes }
         ticket.reload
         expect(response).to redirect_to(ticket_url(ticket))
@@ -107,7 +123,7 @@ RSpec.describe "/tickets", type: :request do
 
     context "with invalid parameters" do
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
-        ticket = Ticket.create! valid_attributes
+        ticket = create(:ticket)
         patch ticket_url(ticket), params: { ticket: invalid_attributes }
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -116,14 +132,14 @@ RSpec.describe "/tickets", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested ticket" do
-      ticket = Ticket.create! valid_attributes
+      ticket = create(:ticket)
       expect {
         delete ticket_url(ticket)
       }.to change(Ticket, :count).by(-1)
     end
 
     it "redirects to the tickets list" do
-      ticket = Ticket.create! valid_attributes
+      ticket = create(:ticket)
       delete ticket_url(ticket)
       expect(response).to redirect_to(tickets_url)
     end

@@ -2,13 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "tickets/new", type: :view do
   before(:each) do
-    assign(:ticket, Ticket.new(
-      title: "MyString",
-      description: "MyText",
-      status_id: 1,
-      progress: 1,
-      users: nil
-    ))
+    assign(:ticket, build(:ticket))
   end
 
   it "renders new ticket form" do
@@ -20,11 +14,7 @@ RSpec.describe "tickets/new", type: :view do
 
       assert_select "textarea[name=?]", "ticket[description]"
 
-      assert_select "input[name=?]", "ticket[status_id]"
-
-      assert_select "input[name=?]", "ticket[progress]"
-
-      assert_select "input[name=?]", "ticket[user_id]"
+      assert_select "select[name=?]", "ticket[user_id]"
     end
   end
 end
