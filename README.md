@@ -81,9 +81,12 @@ In case you'd like to see e-mails being sent with disregard to the ticket's stat
 
 ## 🧪 Running the tests
 
-There's a simple script to put the test database up and run the full specs:
+There's a simple script to put the test database up and run the full specs. Of course, I suggest running it inside the `web` container we've put up.
 ```bash
 bin/test
 ```
 
 Once again, if you prefer to do it manually, you can always check out this `bin/test` script to see how it's done.
+
+## 📚 References
+- Pattern used for the commit emojis: [😍 gitmoji.dev](https://gitmoji.dev/)
