@@ -40,7 +40,7 @@ class Ticket < ApplicationRecord
   end
 
   def reminder_notify!
-    ReminderMailer.reminder_email(self).deliver_later
+    ReminderNotifierService.new(self).notify!
     update(status: :notified)
   end
 end

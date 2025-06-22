@@ -159,22 +159,15 @@ RSpec.describe Ticket, type: :model do
     let(:user) { create(:user) }
     let(:ticket) { create(:ticket, user: user, status: :open) }
 
-    it 'sends reminder email' do
-      expect(ReminderMailer).to receive(:reminder_email).with(ticket).and_return(double(deliver_later: true))
-      ticket.reminder_notify!
+    subject { ticket.reminder_notify! }
+
+    it 'calls the notifier service' do
+      expect(ReminderNotifierService).to receive(:new).with(ticket).and_return(double(notify!: true)).once
+      subject
     end
 
     it 'updates status to notified' do
-      allow(ReminderMailer).to receive(:reminder_email).and_return(double(deliver_later: true))
-      
-      expect { ticket.reminder_notify! }.to change { ticket.reload.status }.from('open').to('notified')
-    end
-
-    it 'persists the status change' do
-      allow(ReminderMailer).to receive(:reminder_email).and_return(double(deliver_later: true))
-      
-      ticket.reminder_notify!
-      expect(ticket.reload.status).to eq('notified')
+      expect { subject }.to change { ticket.reload.status }.from('open').to('notified')
     end
   end
 end
