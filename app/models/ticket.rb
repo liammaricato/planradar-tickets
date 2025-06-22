@@ -1,6 +1,9 @@
 class Ticket < ApplicationRecord
   belongs_to :user
 
+  validates :title, presence: true
+  validates :due_date, presence: true
+
   enum :status_id, {
     open: 0,
     notified: 1,

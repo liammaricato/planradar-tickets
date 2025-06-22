@@ -59,6 +59,9 @@ group :development, :test do
   # FactoryBot for test data
   gem "factory_bot_rails"
 
+  # Shoulda Matchers for testing validations and associations
+  gem "shoulda-matchers"
+
   # Pry for debugging
   gem "pry"
 end
