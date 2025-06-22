@@ -3,7 +3,7 @@ class TicketsController < ApplicationController
 
   # GET /tickets or /tickets.json
   def index
-    @user = User.find(params[:user_id]) if params[:user_id]
+    @user = User.find(params[:user_id]) if params[:user_id].present?
     
     @tickets = @user.tickets if @user
     @tickets ||= Ticket.all.order(due_date: :asc)

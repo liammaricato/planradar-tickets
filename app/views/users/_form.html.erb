@@ -38,8 +38,18 @@
     
     <p>
       <strong>Timezone:</strong>
-      UTC <%= form.number_field :timezone, min: -12, max: 12, step: 1, value: 0 %>:00
+      UTC <%= form.number_field :timezone, min: -12, max: 12, step: 1, value: @user.timezone.to_i || 0 %>:00
     </p>
+
+    <% if Rails.env.development? %>
+      <p>
+        Recurring reminder: <%= form.check_box :due_date_reminder_recurring %>
+        <span style="font-size: 12px; color: #666;">
+          This is a development feature and will send due ticket reminders every minute.
+          It disregards the status for already notified tickets.
+        </span>
+      </p>
+    <% end %>
   </div>
 
   <div>

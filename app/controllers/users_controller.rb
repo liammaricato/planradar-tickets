@@ -65,6 +65,9 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.expect(user: [ :name, :mail, :send_due_date_reminder, :due_date_reminder_interval, :due_date_reminder_time, :timezone ])
+      params.expect(user: [
+        :name, :mail, :send_due_date_reminder, :due_date_reminder_interval,
+        :due_date_reminder_time, :timezone, :due_date_reminder_recurring
+      ])
     end
 end
